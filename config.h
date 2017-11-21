@@ -83,32 +83,51 @@ char termname[] = "st-256color";
 static unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
+/* const char *colorname[] = { */
+/* 	/1* 8 normal colors *1/ */
+/* 	"black", */
+/* 	"red3", */
+/* 	"green3", */
+/* 	"yellow3", */
+/* 	"blue2", */
+/* 	"magenta3", */
+/* 	"cyan3", */
+/* 	"gray90", */
+
+/* 	/1* 8 bright colors *1/ */
+/* 	"gray50", */
+/* 	"red", */
+/* 	"green", */
+/* 	"yellow", */
+/* 	"#5c5cff", */
+/* 	"magenta", */
+/* 	"cyan", */
+/* 	"white", */
+
+/* 	[255] = 0, */
+
+/* 	/1* more colors can be added after 255 to use with DefaultXX *1/ */
+/* 	"#cccccc", */
+/* 	"#555555", */
+/* }; */
+
 const char *colorname[] = {
-	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
-
-	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+  "#282a2e", /* base01 */
+  "#cc6666", /* base08 */
+  "#b5bd68", /* base0B */
+  "#f0c674", /* base0A */
+  "#81a2be", /* base0D */
+  "#a3685a", /* base0F */
+  "#8abeb7", /* base0C */
+  "#e0e0e0", /* base06 */
+  "#1d1f21", /* base00 */
+  "#de935f", /* base09 */
+  "#373b41", /* base02 */
+  "#969896", /* base03 */
+  "#b4b7b4", /* base04 */
+  "#b294bb", /* base0E */
+  "#c5c8c6", /* base05 */
+  "#ffffff", /* base07 */
 };
 
 
@@ -116,10 +135,14 @@ const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 0;
-unsigned int defaultcs = 256;
-unsigned int defaultrcs = 257;
+/* unsigned int defaultfg = 7; */
+/* unsigned int defaultbg = 0; */
+/* unsigned int defaultcs = 256; */
+/* unsigned int defaultrcs = 257; */
+unsigned int defaultfg = 12;
+unsigned int defaultbg = 8;
+unsigned int defaultcs = 14;
+unsigned int defaultrcs = 15;
 
 /*
  * Default shape of cursor
@@ -156,8 +179,14 @@ unsigned int defaultattr = 11;
  */
 MouseShortcut mshortcuts[] = {
 	/* button               mask            string */
-	{ Button4,              XK_ANY_MOD,     "\031" },
-	{ Button5,              XK_ANY_MOD,     "\005" },
+	/* { Button4,              XK_ANY_MOD,     "\031" }, */
+	/* { Button5,              XK_ANY_MOD,     "\005" }, */
+};
+
+MouseKey mkeys[] = {
+	/* button               mask            function        argument */
+	{ Button4,              ShiftMask,      kscrollup,      {.i =  1} },
+	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -178,6 +207,8 @@ Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ TERMMOD,              XK_I,           iso14755,       {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
